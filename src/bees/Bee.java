@@ -7,6 +7,7 @@ import mvc.Model;
 
 import functions.LinearFunction;
 import functions.RastriginFunction;
+import functions.RastriginFunction2D;
 
 public class Bee {
 	
@@ -39,10 +40,10 @@ public class Bee {
 		}
 	private Point generateNewPlace(){
 		double tempX = bestPlace.getX()+((2*new Random().nextDouble())-1.5);
-		return new Point(tempX, new RastriginFunction().getFitness(new double[]{tempX}));
+		return new Point(tempX, RastriginFunction2D.getResult(tempX));
 	}
 	private Point generateNeighbourhood(Point oldPoint){
-		return new Point(oldPoint.getX()+1, new RastriginFunction().getFitness(new double[]{oldPoint.getX()}));
+		return new Point(oldPoint.getX()+1, RastriginFunction2D.getResult(oldPoint.getX()));
 	}
 	private void doWaggleDance(){
 		for(Bee b : model.getBeesPopulation()){
