@@ -12,6 +12,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+
+import bees.Point;
 
 public class View {
 
@@ -51,14 +55,25 @@ public class View {
 		frame.getContentPane().add(txtFDo);
 		txtFDo.setColumns(10);
 		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rastrigin", "Michalewicz"}));
+		comboBox.setBounds(131, 39, 209, 20);
+		frame.getContentPane().add(comboBox);
+		
 		JButton btnUruchom = new JButton("Uruchom");
 		btnUruchom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controller.runModel(txtFOd.getText(), txtFDo.getText());
+				controller.runModel(Double.parseDouble(txtFOd.getText()), Double.parseDouble(txtFDo.getText()), comboBox.getSelectedItem().toString());
 			}
 		});
-		btnUruchom.setBounds(128, 58, 89, 23);
+		btnUruchom.setBounds(131, 130, 89, 23);
 		frame.getContentPane().add(btnUruchom);
+		
+		JLabel lblFunkcja = new JLabel("Funkcja");
+		lblFunkcja.setBounds(10, 36, 46, 14);
+		frame.getContentPane().add(lblFunkcja);
+		
+		
 		
 		
 		
@@ -69,11 +84,7 @@ public class View {
 	public void setController(Controller controller){
 		this.controller=controller;
 	}
-	public void showResult(ArrayList<String> result){
-		String tempResult="";
-		for(String r : result){
-			System.out.println(r);
-		}
-		//JOptionPane.showMessageDialog(null, tempResult);
+	public void showResult(ArrayList<Point> result){
+	new GraphPanel(result).createAndShowGui();
 	}
 }
