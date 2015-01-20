@@ -30,6 +30,14 @@ public class GraphPanel extends JPanel {
 
     public GraphPanel(List<bees.Point> scores) {
         this.scores = scores;
+        double min = this.scores.get(0).getY();
+        for(int i=1; i<this.scores.size();){
+        	if(this.scores.get(i).getY()>=min) this.scores.remove(i);
+        	else {
+        		min=this.scores.get(i).getY();
+        		i++;
+        	}
+        }
     }
 
     @Override
@@ -83,7 +91,7 @@ public class GraphPanel extends JPanel {
                     g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
                     g2.setColor(Color.BLACK);
                     String xLabel = scores.get(i).getX() + "";
-                    xLabel = myRound(xLabel);
+                    xLabel = String.valueOf(i);//myRound(xLabel);
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
                     g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
