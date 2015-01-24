@@ -26,10 +26,13 @@ public class GraphPanel extends JPanel {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
     private int numberYDivisions = 10;
+    private int iloscIteracji;
     private List<bees.Point> scores;
+    private int minimumY;
 
-    public GraphPanel(List<bees.Point> scores) {
+    public GraphPanel(List<bees.Point> scores, int iloscIteracji) {
         this.scores = scores;
+        this.iloscIteracji = iloscIteracji;
         double min = this.scores.get(0).getY();
         for(int i=1; i<this.scores.size();){
         	if(this.scores.get(i).getY()>=min) this.scores.remove(i);
@@ -80,6 +83,7 @@ public class GraphPanel extends JPanel {
         }
 
         // and for x axis
+        int coIle=scores.size()/iloscIteracji;
         for (int i = 0; i < scores.size(); i++) {
             if (scores.size() > 1) {
                 int x0 = i * (getWidth() - padding * 2 - labelPadding) / (scores.size() - 1) + padding + labelPadding;
@@ -96,13 +100,21 @@ public class GraphPanel extends JPanel {
                     int labelWidth = metrics.stringWidth(xLabel);
                     g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                 }
+                if(coIle>0&&i%coIle==0){
+                g2.setColor(Color.RED);
                 g2.drawLine(x0, y0, x1, y1);
+                g2.setColor(Color.BLACK);
+                } else{
+                    g2.drawLine(x0, y0, x1, y1);
+
+                }
             }
         }
 
         // create x and y axes 
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding-10, getWidth() - padding, getHeight() - padding - labelPadding-10);
 
         Stroke oldStroke = g2.getStroke();
         g2.setColor(lineColor);

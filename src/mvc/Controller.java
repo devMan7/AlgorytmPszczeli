@@ -12,8 +12,8 @@ public class Controller {
 		view.setController(this);
 	}
 	
-	public void runModel(double fromX, double toX, String function){
-		view.showResult(model.getResult(fromX, toX, function));
+	public void runModel(double fromX, double toX, String function, int iloscIteracji){
+		view.showResult(model.getResult(fromX, toX, function, iloscIteracji));
 	}
 	
 

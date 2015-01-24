@@ -23,6 +23,7 @@ public class View {
 	private JTextField txtFOd;
 	private JTextField txtFDo;
 	private Controller controller;
+	private JTextField textField;
 
 
 	/**
@@ -60,10 +61,19 @@ public class View {
 		comboBox.setBounds(131, 39, 209, 20);
 		frame.getContentPane().add(comboBox);
 		
+		JLabel lblIloIteracji = new JLabel("Ilo\u015B\u0107 iteracji");
+		lblIloIteracji.setBounds(10, 78, 72, 14);
+		frame.getContentPane().add(lblIloIteracji);
+		
+		textField = new JTextField();
+		textField.setBounds(131, 75, 209, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
 		JButton btnUruchom = new JButton("Uruchom");
 		btnUruchom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controller.runModel(Double.parseDouble(txtFOd.getText()), Double.parseDouble(txtFDo.getText()), comboBox.getSelectedItem().toString());
+				controller.runModel(Double.parseDouble(txtFOd.getText()), Double.parseDouble(txtFDo.getText()), comboBox.getSelectedItem().toString(), Integer.parseInt(textField.getText()));
 			}
 		});
 		btnUruchom.setBounds(131, 130, 89, 23);
@@ -77,6 +87,8 @@ public class View {
 		
 		
 		
+		
+		
 		// zawsze musi byæ na koñcu
 		frame.setVisible(true);
 
@@ -85,6 +97,6 @@ public class View {
 		this.controller=controller;
 	}
 	public void showResult(ArrayList<Point> result){
-	new GraphPanel(result).createAndShowGui();
+	new GraphPanel(result, Integer.parseInt(textField.getText())).createAndShowGui();
 	}
 }

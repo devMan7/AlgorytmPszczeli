@@ -37,7 +37,7 @@ public class Model {
 		this.globalMinimum = globalMinimum;
 	}
 
-	public ArrayList<Point> getResult(double fromX, double toX, String function){
+	public ArrayList<Point> getResult(double fromX, double toX, String function, int iloscIteracji){
 		result = new ArrayList<Point>();
 		try {
 			randomGlobalMinimum(fromX, toX, function);
@@ -53,7 +53,7 @@ public class Model {
 		}
 		setPopulation(10, 30);
 
-		for(int i=0; i<100; i++){
+		for(int i=0; i<iloscIteracji; i++){
 			setPopulation(10, 30);
 			for(int j=0; j<beesPopulation.size();j++){
 				if(beesPopulation.get(j).getRole()==BeeRole.inactive)continue;
